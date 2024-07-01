@@ -30,7 +30,14 @@
                                     {{ $role->name }}
                                 @endforeach
                             </td>
-                            <td><a class="btn btn-primary" href="users/edit/{{$user->id}}">Edit</a></td>
+                            <td>
+                                <a class="btn btn-primary" href="users/edit/{{$user->id}}">Edit</a>
+                                <form action="{{ route('destroy', $user->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

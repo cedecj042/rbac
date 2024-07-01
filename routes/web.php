@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/users',[AdminController::class,'manageUsers'])->name('usertool')->middleware('role:admin');
     Route::get('/admin/users/edit/{id}',[AdminController::class,'editUser'])->middleware('role:admin')->name('edit');
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser')->middleware('role:admin');
+    Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->middleware('role:admin')->name('destroy');
 
     Route::get('/acctg/new',[BookController::class,'newLedgerEntry'])->middleware(['role:admin,bookeeper,auditor'])->name('newledger');
     Route::post('/acctg/new',[BookController::class,'saveNewLedgerEntry'])->middleware('role:admin,bookeeper')->name('saveledger');

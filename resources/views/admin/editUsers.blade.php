@@ -5,7 +5,7 @@
 @section('page-content')
 
 <div class="container">
-    <a href="{{ route('usertool ') }}" class="link-dark">Back</a>
+    <a href="{{ route('usertool') }}" class="link-dark">Back</a>
     <h3>Edit User</h3>
     <div class="row">
         <div class="col d-flex flex-col justify-content-center">

@@ -1,43 +1,35 @@
 @extends('mainLayout')
 
-@section('page-title','Account Login')
+@section('page-title', 'Account Login')
 
 @section('auth-content')
-<div class="container vh-100">
-    <div class="row lh-base">
-        <div class="col-4"></div>
-        <div class="col-4" style="font-size: 1.6rem; background-color: black; color: white;">User Login</div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-4">&nbsp;</div>
-        <div class="col-4" style="border: 1px solid grey;">
-            <form method="POST" action="{{ route('login') }}" class="form">
+<div class="container-fluid p-5">
+    <div class="row w-20">
+        <div class="col d-flex justify-content-center">
+            <form method="POST" action="{{ route('login') }}" class="form" style="width:500px;">
                 @csrf
-                <div class="formgroupp">
+                <h2>Login</h2>
+                <div class="formgroup mb-3">
                     <label class="auth-labels">Username</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required class="auth-textbox form-control border border-dark">
+                    <input type="text" name="name" value="{{ old('name') }}" required
+                        class="form-control border-secondary"  placeholder="Enter username">
                     @error('name')
                         <span>{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="formgroup">
+                <div class="formgroup mb-3">
                     <label class="auth-labels">Password</label>
-                    <input type="password" name="password" required class="auth-textbox form-control border border-dark">
+                    <input type="password" name="password" required class="form-control border border-secondary" placeholder="Enter password">
                     @error('password')
                         <span>{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="text-center">
-                   <button type="submit" class="btn btn-md btn-primary">Login</button>
-                   <button type="reset" class="btn btn-md btn-danger">Clear</button>
-                </div>
-                <div class="text-center">
-                    Not a user? Register <a href="{{ route('register') }}">Here</a>.
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+                <div class="text-center mt-4" style="font-size:21px;">
+                    No Account Yet? <a href="{{ route('register') }}" style="font-size:18px;">Sign Up</a>.
                 </div>
             </form>
         </div>
-        <div class="col-4"></div>
     </div>
 </div>
 @endsection

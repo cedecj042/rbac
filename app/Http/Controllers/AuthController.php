@@ -49,7 +49,6 @@ class AuthController extends Controller
             'user_id' => $user->id
         ]);
 
-
         return redirect()->route('login');
     }
 

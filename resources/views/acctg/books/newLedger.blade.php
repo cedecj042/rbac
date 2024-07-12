@@ -3,7 +3,7 @@
 @section('page-content')
 <div class="container-fluid">
     <!-- Do what you can, with what you have, where you are. - Theodore Roosevelt -->
-    <form action="{{ route('saveledger') }}" method="post">
+    <form action="{{ route('saveledger') }}" method="POST">
         @csrf
     <div class="row">
         <div class="col-sm-4"></div>
@@ -14,7 +14,7 @@
             </div>
             <div>
                 <label for="entryamount" class="form-label">Amount:</label>
-                <input type="text" class="form-control form-control-sm text-end" id="entryamount">
+                <input type="text" class="form-control form-control-sm text-end" id="entryamount" name="entryamount">
             </div>
         </div>
         <div class="col-sm-4"></div>

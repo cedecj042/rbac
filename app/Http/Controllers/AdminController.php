@@ -38,19 +38,20 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id
         ]);
-    
+
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->save();
-    
+
 
         // Sync roles
         $user->roles()->sync($request->input('roles', []));
 
         return redirect()->route('usertool')->with('success', 'User updated successfully');
     }
-    public function deleteUser($id){
+    public function deleteUser($id)
+    {
         $user = User::find($id);
 
         if ($user) {
@@ -60,4 +61,48 @@ class AdminController extends Controller
 
         return redirect()->route('usertool')->with('error', 'User not found.');
     }
+
+    public function manageRoles()
+    {
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('admin.manageRoles')->with(compact('roles', 'permissions'));
+    }
+    public function addRoles()
+    {
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('admin.addRoles')->with(compact('roles', 'permissions'));
+    }
+    public function addRolesPermission(Request $request)
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'permissions' => 'required|array',
+            'permissions.*' => 'required|integer|exists:permissions,id',
+        ]);
+        $role = Role::create(['name' => $validated['name']]);
+        $role->permissions()->sync($validated['permissions']);
+
+        return redirect()->route('rolestool')->with('success', 'Role and permissions created successfully!');
+    }
+    public function deleteRoles($id)
+    {
+        $role = Role::find($id);
+
+        if ($role) {
+            $role->delete();
+            return redirect()->route('rolestool')->with('success', 'Role deleted successfully.');
+        }
+
+        return redirect()->route('rolestool')->with('error', 'Role not found.');
+    }
+    public function editRoles($id)
+    {
+        $role = Role::with('permissions')->select('id', 'name')->find($id);
+        return view('admin.editusers')->with(compact('role'));
+    }
+
 }

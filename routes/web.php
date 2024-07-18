@@ -27,11 +27,17 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/users/edit/{id}',[AdminController::class,'editUser'])->middleware('role:admin')->name('edit');
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser')->middleware('role:admin');
     Route::delete('/admin/users/delete/{id}', [AdminController::class, 'deleteUser'])->middleware('role:admin')->name('destroy');
+    
+    Route::get('/admin/roles',[AdminController::class,'manageRoles'])->name('rolestool')->middleware('role:admin');
+    Route::get('/admin/roles/add',[AdminController::class,'addRoles'])->name('add')->middleware('role:admin');
+    Route::post('/admin/roles/addRolesPermission',[AdminController::class,'addRolesPermission'])->name('addRolesPermission')->middleware('role:admin');
+    Route::get('/admin/roles/edit/{id}',[AdminController::class,'editRoles'])->name('editRoles')->middleware('role:admin');
+    Route::delete('/admin/roles/delete/{id}',[AdminController::class,'deleteRoles'])->name('deleteRoles')->middleware('role:admin');
 
     Route::get('/acctg/new',[BookController::class,'newLedgerEntry'])->middleware(['role:admin,bookeeper,auditor'])->name('newledger');
     Route::post('/acctg/new',[BookController::class,'saveNewLedgerEntry'])->middleware('role:admin,bookeeper')->name('saveledger');
     Route::get('/acctg/view/all',[BookController::class,'showAllLedgers'])->middleware(['role:admin,bookeeper,auditor,audasst'])->name('ledgers');
     Route::get('/acctg/view/{id}',[BookController::class,'viewLedgerDetails'])->middleware(['role:admin,auditor,audasst'])->name('ledger');
-
+    
 });
 
